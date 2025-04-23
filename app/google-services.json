@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "538473156890",
+    "project_id": "progetto-parabellum",
+    "storage_bucket": "progetto-parabellum.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538473156890:android:9617c43848fa2646ebdca3",
+        "android_client_info": {
+          "package_name": "com.example.progettoparabellum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXDL1TYbTrgZvp2ZB986tQ9btaflmt6QM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

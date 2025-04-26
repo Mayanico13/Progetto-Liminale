@@ -1,4 +1,4 @@
-package login.viewmodel
+package ui.login
 
 class LoginViewModel {
 }

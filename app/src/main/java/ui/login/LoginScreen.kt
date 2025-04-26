@@ -1,4 +1,4 @@
-package login.ui
+package ui.login
 
 class LoginScreen {
 

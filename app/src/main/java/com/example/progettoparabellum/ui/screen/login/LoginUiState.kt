@@ -1,4 +1,4 @@
-package ui.login
+package com.example.progettoparabellum.ui.screen.login
 
 data class LoginUiState (
 

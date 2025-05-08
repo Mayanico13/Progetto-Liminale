@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.Dp
+import androidx.lifecycle.viewmodel.InitializerViewModelFactoryBuilder
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.progettoparabellum.ui.screen.login.LoginViewModel
 
 
@@ -30,7 +32,7 @@ class LoginUI {
     fun LoginFields () {
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
-        var viewModel: LoginViewModel = viewModel()
+        val viewModel: LoginViewModel = viewModel()
         Column(modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(space = 10.dp, alignment =  Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally) {

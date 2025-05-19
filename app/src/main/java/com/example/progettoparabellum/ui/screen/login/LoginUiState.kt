@@ -1,8 +1,10 @@
 package com.example.progettoparabellum.ui.screen.login
 
-data class LoginUiState (
+sealed class LoginUiState {
 
-    var email: String = "",
-    var password: String = ""
+    object Idle : LoginUiState()
+    object Loading : LoginUiState()
+    data class Success (val message: String): LoginUiState()
+    data class Error (val message: String): LoginUiState()
 
-)
+}

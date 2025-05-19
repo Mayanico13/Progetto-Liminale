@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,16 +24,21 @@ import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.viewmodel.InitializerViewModelFactoryBuilder
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.progettoparabellum.ui.screen.login.LoginViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+
+
 
 
 class LoginUI {
 
     @Preview
     @Composable
-    fun LoginFields () {
+    fun LoginFields (
+        loginViewModel: LoginViewModel = viewModel()
+    ) {
+        val loginUiState by loginViewModel.loginUiState.collectAsState()
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
-        val viewModel: LoginViewModel = viewModel()
         Column(modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(space = 10.dp, alignment =  Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally) {
@@ -56,7 +62,7 @@ class LoginUI {
 
             )
 
-            Button(onClick = { }) {
+            Button(onClick = {loginViewModel.login(email, password)}) {
                 Text("Login")
             }
         }

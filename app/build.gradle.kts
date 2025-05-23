@@ -53,7 +53,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.0")
     implementation("androidx.activity:activity-compose:1.10.1")
-    implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation(platform("com.google.firebase:firebase-firestore"))
+    implementation(platform("com.google.firebase:firebase-common"))
+    implementation("com.google.firebase:firebase-auth")
     implementation("androidx.compose.material3:material3:1.4.0-alpha13")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -62,5 +65,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.navigation:navigation-compose:2.9.0")
 
 }

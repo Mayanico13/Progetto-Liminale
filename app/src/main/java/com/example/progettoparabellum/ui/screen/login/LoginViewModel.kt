@@ -1,7 +1,7 @@
 package com.example.progettoparabellum.ui.screen.login
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.progettoparabellum.data.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,10 +30,17 @@ class LoginViewModel @Inject constructor(
             }
             _uiState.value = LoginUiState.Success("")
         }
-
-
-
-
     }
 
+
+
+}
+
+
+class MyViewModelFactory(
+    private val repository: AuthRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return LoginViewModel(repository) as T
+    }
 }

@@ -57,14 +57,15 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-firestore"))
     implementation(platform("com.google.firebase:firebase-common"))
     implementation("com.google.firebase:firebase-auth")
-    implementation("androidx.compose.material3:material3:1.4.0-alpha13")
+    implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.navigation:navigation-compose:2.9.0")
+
+
 
 }

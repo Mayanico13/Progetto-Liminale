@@ -1,6 +1,5 @@
 package com.example.progettoparabellum.ui.screen.login
 
-import android.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Box
@@ -21,20 +20,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 
     @Composable
     fun LoginScreen (
-
-        navController: NavController
+        navController: NavController,
+        loginViewModel: LoginViewModel = hiltViewModel()
     ) {
-        val loginViewModel: LoginViewModel = viewModel()
+
         val loginUiState by loginViewModel.uiState.collectAsState()
 
 
-        when(val state = loginUiState){
-            is LoginUiState.Error -> InitialScreen(loginViewModel, true)
+        when(loginUiState){
+            is LoginUiState.Error -> {
+
+            }
             LoginUiState.Idle -> InitialScreen(loginViewModel, false)
             LoginUiState.Loading -> LoadingScreen()
             is LoginUiState.Success -> InitialScreen(loginViewModel, false)
@@ -44,10 +45,12 @@ import androidx.navigation.NavController
     @Composable
     fun InitialScreen(
         loginViewModel: LoginViewModel,
-        isError: Boolean
+        isFieldError: Boolean
     ){
+        var isError by remember { mutableStateOf(false) }
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
+
         Column(modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(space = 10.dp, alignment =  Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally) {
@@ -60,7 +63,7 @@ import androidx.navigation.NavController
                 onValueChange = {email = it},
                 label = {Text("Email")},
                 singleLine = true,
-                isError = isError
+                isError = isFieldError
 
             )
             Spacer(modifier = Modifier.offset())
@@ -70,7 +73,7 @@ import androidx.navigation.NavController
                 onValueChange = {password = it},
                 label = {Text("Password")},
                 singleLine = true,
-                isError = isError
+                isError = isFieldError
             )
 
             Button(onClick = {loginViewModel.login(email, password)}) {
@@ -89,5 +92,9 @@ import androidx.navigation.NavController
                 modifier = Modifier.size(64.dp)
             )
         }
+    }
+
+    fun ErrorScreen(){
+
     }
 

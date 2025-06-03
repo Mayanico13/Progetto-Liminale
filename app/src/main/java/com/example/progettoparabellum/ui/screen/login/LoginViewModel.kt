@@ -4,12 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.progettoparabellum.data.AuthRepository
+import dagger.assisted.AssistedFactory
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class LoginViewModel @Inject constructor(
     private val repository: AuthRepository
 ) : ViewModel() {
@@ -32,15 +35,17 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-
-
+    /*@AssistedFactory
+    interface MyViewModelFactory {
+        fun create(repository: AuthRepository): LoginViewModel
+    }*/
 }
 
 
-class MyViewModelFactory(
+/*class LoginViewModelFactory(
     private val repository: AuthRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return LoginViewModel(repository) as T
     }
-}
+}*/

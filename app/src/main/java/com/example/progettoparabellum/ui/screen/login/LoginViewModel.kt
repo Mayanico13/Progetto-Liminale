@@ -20,6 +20,12 @@ class LoginViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
+    private val _emailState = MutableStateFlow<LoginTextFieldState>(LoginTextFieldState.Correct)
+    val emailState: StateFlow<LoginTextFieldState> = _emailState.asStateFlow()
+
+    private val _passwordState = MutableStateFlow<LoginTextFieldState>(LoginTextFieldState.Correct)
+    val passwordState: StateFlow<LoginTextFieldState> = _passwordState.asStateFlow()
+
 
 
     fun login(email: String, password: String){
@@ -30,6 +36,9 @@ class LoginViewModel @Inject constructor(
                 repository.login(email, password)
             } catch (e: Exception){
                 _uiState.value = LoginUiState.Error("Email e/o password non corrette")
+                _passwordState.value = LoginTextFieldState.Error
+                _emailState.value = LoginTextFieldState.Error
+
             }
             _uiState.value = LoginUiState.Success("")
         }

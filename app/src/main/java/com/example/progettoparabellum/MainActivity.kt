@@ -38,7 +38,16 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ScreenMain(){
         val navController = rememberNavController()
+        val authRepo = AppModule.provideFirebaseAuth()
+        var route : String
+        if(authRepo.currentUser != null){
+            route = Routes.Login.route
+        } else {
+            TODO()
+        }
+
         ProgettoParabellumTheme {
+            //substitute with route
             NavHost(navController, startDestination = Routes.Login.route) {
                 composable(Routes.Login.route) {
                     LoginScreen(navController)

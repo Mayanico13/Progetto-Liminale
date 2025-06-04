@@ -33,23 +33,32 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 
         when(loginUiState){
-            is LoginUiState.Error -> {
-
-            }
-            LoginUiState.Idle -> InitialScreen(loginViewModel, false)
+            is LoginUiState.Error -> TODO()
+            LoginUiState.Idle -> InitialScreen(loginViewModel)
             LoginUiState.Loading -> LoadingScreen()
-            is LoginUiState.Success -> InitialScreen(loginViewModel, false)
+            is LoginUiState.Success -> InitialScreen(loginViewModel)
         }
     }
 
     @Composable
     fun InitialScreen(
-        loginViewModel: LoginViewModel,
-        isFieldError: Boolean
+        loginViewModel: LoginViewModel
     ){
-        var isError by remember { mutableStateOf(false) }
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
+
+        val emailState by loginViewModel.emailState.collectAsState()
+        val passwordState by loginViewModel.passwordState.collectAsState()
+
+        var isEmailCorrect: Boolean = when(emailState){
+            LoginTextFieldState.Correct -> true
+            LoginTextFieldState.Error -> false
+        }
+
+        var isPasswordCorrect: Boolean = when(passwordState){
+            LoginTextFieldState.Correct -> true
+            LoginTextFieldState.Error -> false
+        }
 
         Column(modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(space = 10.dp, alignment =  Alignment.CenterVertically),
@@ -63,7 +72,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
                 onValueChange = {email = it},
                 label = {Text("Email")},
                 singleLine = true,
-                isError = isFieldError
+                isError = !isEmailCorrect
 
             )
             Spacer(modifier = Modifier.offset())
@@ -73,7 +82,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
                 onValueChange = {password = it},
                 label = {Text("Password")},
                 singleLine = true,
-                isError = isFieldError
+                isError = !isPasswordCorrect
             )
 
             Button(onClick = {loginViewModel.login(email, password)}) {
@@ -94,7 +103,4 @@ import androidx.hilt.navigation.compose.hiltViewModel
         }
     }
 
-    fun ErrorScreen(){
-
-    }
 

@@ -87,7 +87,7 @@ import com.example.progettoparabellum.Routes
                 isError = !isPasswordCorrect
             )
 
-            Button(onClick = {loginViewModel.login(email, password)}) {
+            Button(onClick = {loginViewModel.tryLogin(email, password)}) {
                 Text("Login")
             }
 

@@ -22,27 +22,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.progettoparabellum.Routes
 
-    @Composable
+@Composable
     fun LoginScreen (
         navController: NavController,
-        loginViewModel: LoginViewModel = hiltViewModel()
+        loginViewModel: LoginViewModel = hiltViewModel<LoginViewModel>()
     ) {
 
-        val loginUiState by loginViewModel.uiState.collectAsState()
+        val uiState by loginViewModel.uiState.collectAsState()
 
 
-        when(loginUiState){
+        when(uiState){
             is LoginUiState.Error -> TODO()
-            LoginUiState.Idle -> InitialScreen(loginViewModel)
+            LoginUiState.Idle -> InitialScreen(loginViewModel, navController)
             LoginUiState.Loading -> LoadingScreen()
-            is LoginUiState.Success -> InitialScreen(loginViewModel)
+            is LoginUiState.Success -> InitialScreen(loginViewModel, navController)
         }
     }
 
     @Composable
     fun InitialScreen(
-        loginViewModel: LoginViewModel
+        loginViewModel: LoginViewModel,
+        navController: NavController
     ){
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
@@ -87,6 +89,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
             Button(onClick = {loginViewModel.login(email, password)}) {
                 Text("Login")
+            }
+
+            Button(onClick = {navController.navigate("register")}) {
+                Text("Register instead")
             }
         }
     }

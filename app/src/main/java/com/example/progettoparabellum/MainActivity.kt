@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.*
 import com.example.progettoparabellum.ui.theme.ProgettoParabellumTheme
 import com.example.progettoparabellum.ui.screen.login.LoginScreen
+import com.example.progettoparabellum.ui.screen.register.RegisterScreen
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
@@ -52,10 +53,12 @@ class MainActivity : ComponentActivity() {
                 composable(Routes.Login.route) {
                     LoginScreen(navController)
                 }
+
+                composable(Routes.Register.route) {
+                    RegisterScreen(navController)
+                }
             }
-            Surface(modifier = Modifier.fillMaxSize()){
-                LoginScreen(navController)
-            }
+
         }
     }
 

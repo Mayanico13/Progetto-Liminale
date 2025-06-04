@@ -1,10 +1,8 @@
 package com.example.progettoparabellum.ui.screen.login
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.progettoparabellum.data.AuthRepository
-import dagger.assisted.AssistedFactory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -38,7 +36,6 @@ class LoginViewModel @Inject constructor(
                 _uiState.value = LoginUiState.Error("Email e/o password non corrette")
                 _passwordState.value = LoginTextFieldState.Error
                 _emailState.value = LoginTextFieldState.Error
-
             }
             _uiState.value = LoginUiState.Success("")
         }

@@ -1,8 +1,6 @@
 package com.example.progettoparabellum.data
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import jakarta.inject.Inject
 
 class AuthRepository @Inject constructor(
@@ -20,6 +18,10 @@ class AuthRepository @Inject constructor(
         }catch(e: Error){
           throw error("")
         }
+    }
+
+    fun register(email: String, password: String){
+        TODO()
     }
 
 

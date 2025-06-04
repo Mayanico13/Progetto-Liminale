@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
         if(authRepo.currentUser != null){
             route = Routes.Login.route
         } else {
-            TODO()
+            route = Routes.Login.route
         }
 
         ProgettoParabellumTheme {

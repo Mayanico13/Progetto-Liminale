@@ -32,7 +32,6 @@ import androidx.navigation.NavController
 import com.example.progettoparabellum.ui.screen.TextState
 import com.example.progettoparabellum.ui.screen.login.InitialScreen
 import com.example.progettoparabellum.ui.screen.login.LoadingScreen
-import com.example.progettoparabellum.ui.screen.login.LoginTextFieldState
 import com.example.progettoparabellum.ui.screen.login.LoginUiState
 
 @Composable

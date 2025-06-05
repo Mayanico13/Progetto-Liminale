@@ -1,6 +1,8 @@
 package com.example.progettoparabellum.ui.screen.register
 
+import android.util.Log
 import android.util.Patterns
+import androidx.compose.material3.Text
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.progettoparabellum.data.AuthRepository
@@ -34,6 +36,10 @@ class RegisterViewModel @Inject constructor(
 
         if((email.isNotEmpty() && password.isNotEmpty()) && (password.equals(confirmPassword)) && isValidEmail(email)){
             register(email, password)
+            //
+            //Da togliere
+            //
+            repository.logout()
         } else {
             _uiState.value = RegisterUiState.Error("No vuoto")
             _emailState.value = TextState.ERROR
@@ -50,8 +56,21 @@ class RegisterViewModel @Inject constructor(
         _uiState.value = RegisterUiState.Loading
 
         repository.register(email, password) { result: Result<Unit> ->
-            TODO()
+            registerResult(result)
         }
+    }
+
+    fun registerResult(result: Result<Unit>){
+        _uiState.value = result.fold(
+            onSuccess = { RegisterUiState.Success("")},
+            onFailure = { RegisterUiState.Error("BAH")}
+        )
+
+        result.onFailure { _emailState.value = TextState.ERROR
+            _passwordState.value = TextState.ERROR
+            _confirmPasswordState.value = TextState.ERROR
+        }
+
     }
 
     fun onEmailChanged(email: String){

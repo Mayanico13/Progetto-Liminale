@@ -60,6 +60,14 @@ class LoginViewModel @Inject constructor(
 
     }
 
+    fun isUserLogged() : Boolean{
+        return repository.isLogged()
+    }
+
+    fun logout(){
+        repository.logout()
+    }
+
     fun onEmailChanged(email: String){
         _emailState.value = TextState.CORRECT
     }

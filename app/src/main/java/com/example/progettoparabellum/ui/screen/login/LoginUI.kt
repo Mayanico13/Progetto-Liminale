@@ -1,5 +1,6 @@
 package com.example.progettoparabellum.ui.screen.login
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.progettoparabellum.Routes
+import com.example.progettoparabellum.data.AuthRepository
 import com.example.progettoparabellum.ui.screen.TextState
 
 @Composable
@@ -55,7 +57,10 @@ fun LoginScreen (
         is LoginUiState.Error -> InitialScreen(loginViewModel, navController)
         LoginUiState.Idle -> InitialScreen(loginViewModel, navController)
         LoginUiState.Loading -> LoadingScreen()
-        is LoginUiState.Success -> InitialScreen(loginViewModel, navController)
+        is LoginUiState.Success -> {InitialScreen(loginViewModel, navController)
+            //TOGLIERE PLZ
+            Log.d("TAG", "Login effettuato? : " + loginViewModel.isUserLogged())
+            loginViewModel.logout()}
     }
 }
 

@@ -1,18 +1,13 @@
-package com.example.progettoparabellum.ui.screen.register
+package com.example.progettoparabellum.ui.screen.auth.register
 
-import android.util.Log
 import android.util.Patterns
-import androidx.compose.material3.Text
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.progettoparabellum.data.AuthRepository
-import com.example.progettoparabellum.ui.screen.login.LoginUiState
-import com.example.progettoparabellum.ui.screen.TextState
+import com.example.progettoparabellum.data.repository.AuthRepository
+import com.example.progettoparabellum.ui.screen.auth.TextState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 

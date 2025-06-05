@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
 import com.google.firebase.FirebaseApp
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,8 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.*
 import com.example.progettoparabellum.ui.theme.ProgettoParabellumTheme
-import com.example.progettoparabellum.ui.screen.login.LoginScreen
-import com.example.progettoparabellum.ui.screen.register.RegisterScreen
+import com.example.progettoparabellum.ui.screen.auth.login.LoginScreen
+import com.example.progettoparabellum.ui.screen.auth.register.RegisterScreen
+import com.example.progettoparabellum.ui.screen.home.HomeScreen
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
@@ -32,7 +31,7 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
-            ScreenMain()
+                ScreenMain()
         }
     }
 
@@ -42,7 +41,7 @@ class MainActivity : ComponentActivity() {
         val authRepo = AppModule.provideFirebaseAuth()
         var route : String
         if(authRepo.currentUser != null){
-            route = Routes.Login.route
+            route = Routes.Home.route
         } else {
             route = Routes.Login.route
         }
@@ -56,6 +55,10 @@ class MainActivity : ComponentActivity() {
 
                 composable(Routes.Register.route) {
                     RegisterScreen(navController)
+                }
+
+                composable(Routes.Home.route) {
+                    HomeScreen(navController)
                 }
             }
 

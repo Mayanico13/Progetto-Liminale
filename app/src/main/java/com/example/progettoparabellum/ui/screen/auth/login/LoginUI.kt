@@ -1,21 +1,15 @@
-package com.example.progettoparabellum.ui.screen.login
+package com.example.progettoparabellum.ui.screen.auth.login
 
 import android.util.Log
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.BasicSecureTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.input.TextFieldState
-import androidx.compose.foundation.text.input.TextObfuscationMode
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -23,15 +17,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.traceEventEnd
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -40,9 +35,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.progettoparabellum.Routes
-import com.example.progettoparabellum.data.AuthRepository
-import com.example.progettoparabellum.ui.screen.TextState
+import com.example.progettoparabellum.ui.screen.auth.TextState
 
 @Composable
 fun LoginScreen (
@@ -77,7 +70,7 @@ fun InitialScreen(
     var showPassword by remember { mutableStateOf(false) }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
         verticalArrangement = Arrangement.spacedBy(
             space = 10.dp,
             alignment = Alignment.CenterVertically
@@ -85,8 +78,10 @@ fun InitialScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text("Benvenuto!")
-        Text("Per continuare effettua il login")
+        Text("Benvenuto!",
+            color = MaterialTheme.colorScheme.onBackground)
+        Text("Per continuare effettua il login",
+            color = MaterialTheme.colorScheme.onBackground)
 
         OutlinedTextField(
             value = email,
@@ -94,7 +89,7 @@ fun InitialScreen(
                 email = it
                 loginViewModel.onEmailChanged(it)
             },
-            label = { Text("Email") },
+            label = { Text("Email")},
             singleLine = true,
             isError = emailState == TextState.ERROR
         )

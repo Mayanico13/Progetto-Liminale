@@ -1,4 +1,4 @@
-package com.example.progettoparabellum.ui.screen.register
+package com.example.progettoparabellum.ui.screen.auth.register
 
 sealed class RegisterUiState {
     object Idle : RegisterUiState()

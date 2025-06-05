@@ -1,11 +1,11 @@
-package com.example.progettoparabellum.ui.screen.register
+package com.example.progettoparabellum.ui.screen.auth.register
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,10 +30,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.progettoparabellum.ui.screen.TextState
-import com.example.progettoparabellum.ui.screen.login.InitialScreen
-import com.example.progettoparabellum.ui.screen.login.LoadingScreen
-import com.example.progettoparabellum.ui.screen.login.LoginUiState
+import com.example.progettoparabellum.ui.screen.auth.TextState
+import com.example.progettoparabellum.ui.screen.auth.login.LoadingScreen
 
 @Composable
 fun RegisterScreen(
@@ -65,12 +64,14 @@ fun InitialScreen(
     val passwordState by registerViewModel.passwordState.collectAsState()
     val confirmPasswordState by registerViewModel.confirmPasswordState.collectAsState()
 
-    Column(modifier = Modifier.fillMaxSize(),
+    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
         verticalArrangement = Arrangement.spacedBy(space = 10.dp, alignment =  Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally) {
 
-        Text("Benvenuto!")
-        Text("Per continuare registrati")
+        Text("Benvenuto!",
+            color = MaterialTheme.colorScheme.onBackground)
+        Text("Per continuare registrati",
+            color = MaterialTheme.colorScheme.onBackground)
 
         OutlinedTextField(
             value = email,

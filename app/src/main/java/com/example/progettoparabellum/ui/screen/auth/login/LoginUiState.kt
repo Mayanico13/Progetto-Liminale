@@ -1,4 +1,4 @@
-package com.example.progettoparabellum.ui.screen.login
+package com.example.progettoparabellum.ui.screen.auth.login
 
 sealed class LoginUiState {
 

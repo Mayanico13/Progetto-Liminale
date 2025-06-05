@@ -1,10 +1,7 @@
-package com.example.progettoparabellum.data
+package com.example.progettoparabellum.data.repository
 
-import android.text.TextUtils
-import android.util.Patterns
 import com.google.firebase.auth.FirebaseAuth
 import jakarta.inject.Inject
-
 
 class AuthRepository @Inject constructor(
     private val auth : FirebaseAuth

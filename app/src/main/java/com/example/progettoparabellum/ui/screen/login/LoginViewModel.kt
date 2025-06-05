@@ -1,7 +1,9 @@
 package com.example.progettoparabellum.ui.screen.login
 
+import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import com.example.progettoparabellum.data.AuthRepository
+import com.example.progettoparabellum.ui.screen.TextState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,31 +19,53 @@ class LoginViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
-    private val _emailState = MutableStateFlow<LoginTextFieldState>(LoginTextFieldState.Correct)
-    val emailState: StateFlow<LoginTextFieldState> = _emailState.asStateFlow()
+    private val _emailState = MutableStateFlow<TextState>(TextState.CORRECT)
+    val emailState: StateFlow<TextState> = _emailState.asStateFlow()
 
-    private val _passwordState = MutableStateFlow<LoginTextFieldState>(LoginTextFieldState.Correct)
-    val passwordState: StateFlow<LoginTextFieldState> = _passwordState.asStateFlow()
+    private val _passwordState = MutableStateFlow<TextState>(TextState.CORRECT)
+    val passwordState: StateFlow<TextState> = _passwordState.asStateFlow()
 
     fun tryLogin(email: String, password: String){
 
-        if(email.isNotEmpty() && password.isNotEmpty()){
-            login(email, password)
+        if(email.isNotEmpty() && password.isNotEmpty() && isValidEmail(email)){
+                login(email, password)
         } else {
             _uiState.value = LoginUiState.Error("No vuoto")
+            _emailState.value = TextState.ERROR
+            _passwordState.value = TextState.ERROR
         }
+    }
+
+    fun isValidEmail(target: CharSequence): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 
     fun login(email: String, password: String){
         _uiState.value = LoginUiState.Loading
         repository.login(email, password) { result: Result<Unit> ->
-            _uiState.value = result.fold(
-                onSuccess = { LoginUiState.Success("")},
-                onFailure = { LoginUiState.Error("Email e/o password non corrette")}
-
-            )
+            loginResult(result)
         }
 
+    }
+
+    fun loginResult(result: Result<Unit>){
+        _uiState.value = result.fold(
+            onSuccess = { LoginUiState.Success("")},
+            onFailure = { LoginUiState.Error("Email e/o password non corrette")}
+        )
+
+        result.onFailure { _emailState.value = TextState.ERROR
+            _passwordState.value = TextState.ERROR
+        }
+
+    }
+
+    fun onEmailChanged(email: String){
+        _emailState.value = TextState.CORRECT
+    }
+
+    fun onPasswordChanged(password: String){
+        _passwordState.value = TextState.CORRECT
     }
 
     /*@AssistedFactory

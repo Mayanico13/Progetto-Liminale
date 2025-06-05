@@ -71,5 +71,5 @@ dependencies {
     ksp("com.google.dagger:hilt-android-compiler:2.56.2")
     implementation("androidx.hilt:hilt-navigation:1.2.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-
+    implementation ("androidx.compose.material:material-icons-extended:1.7.8")
 }

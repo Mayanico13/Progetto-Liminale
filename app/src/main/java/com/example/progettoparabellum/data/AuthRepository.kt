@@ -1,8 +1,10 @@
 package com.example.progettoparabellum.data
 
+import android.text.TextUtils
+import android.util.Patterns
 import com.google.firebase.auth.FirebaseAuth
 import jakarta.inject.Inject
-import kotlin.Result
+
 
 class AuthRepository @Inject constructor(
     private val auth : FirebaseAuth
@@ -25,12 +27,17 @@ class AuthRepository @Inject constructor(
             }
         }
     }
-    fun register(email: String, password: String){
-        TODO()
+    fun register(email: String, password: String, callback: (Result<Unit>) -> Unit){
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                currentUser = auth.currentUser
+                callback(Result.success(Unit))
+
+            } else {
+                callback(Result.failure(Exception("")))
+
+            }
+        }
     }
-
-
-
-
 
 }

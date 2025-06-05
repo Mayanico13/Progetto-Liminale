@@ -6,7 +6,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,9 +23,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.progettoparabellum.ui.screen.TextState
 import com.example.progettoparabellum.ui.screen.login.InitialScreen
 import com.example.progettoparabellum.ui.screen.login.LoadingScreen
 import com.example.progettoparabellum.ui.screen.login.LoginTextFieldState
@@ -33,7 +43,7 @@ fun RegisterScreen(
     val uiState by registerViewModel.uiState.collectAsState()
 
     when(uiState){
-        is RegisterUiState.Error -> TODO()
+        is RegisterUiState.Error -> InitialScreen(registerViewModel, navController)
         RegisterUiState.Idle -> InitialScreen(registerViewModel, navController)
         RegisterUiState.Loading -> LoadingScreen()
         is RegisterUiState.Success -> InitialScreen(registerViewModel, navController)
@@ -47,6 +57,14 @@ fun InitialScreen(
 ){
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+
+    var showPassword by remember { mutableStateOf(false) }
+    var showConfirmPassword by remember { mutableStateOf(false) }
+
+    val emailState by registerViewModel.emailState.collectAsState()
+    val passwordState by registerViewModel.passwordState.collectAsState()
+    val confirmPasswordState by registerViewModel.confirmPasswordState.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(space = 10.dp, alignment =  Alignment.CenterVertically),
@@ -57,31 +75,58 @@ fun InitialScreen(
 
         OutlinedTextField(
             value = email,
-            onValueChange = {email = it},
+            onValueChange = {email = it
+                registerViewModel.onEmailChanged(it)},
             label = {Text("Email")},
             singleLine = true,
-            isError = false
+            isError = emailState == TextState.ERROR
 
         )
         Spacer(modifier = Modifier.offset())
 
         OutlinedTextField(
             value = password,
-            onValueChange = {password = it},
+            onValueChange = {password = it
+                registerViewModel.onPasswordChanged(it)},
             label = {Text("Password")},
             singleLine = true,
-            isError = false
+            isError = passwordState == TextState.ERROR,
+            visualTransformation = if (showPassword) {VisualTransformation.None} else {PasswordVisualTransformation()},
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            trailingIcon = {
+                val image = if (showPassword) {
+                    Icons.Filled.Visibility
+                } else {
+                    Icons.Filled.VisibilityOff
+                }
+                val description = if (showPassword) {"Hide password"} else {"Show password"}
+                IconButton(onClick = {showPassword = !showPassword}){
+                    Icon(imageVector  = image, description)}
+            }
         )
 
         OutlinedTextField(
-            value = password,
-            onValueChange = {password = it},
+            value = confirmPassword,
+            onValueChange = {confirmPassword = it
+                            registerViewModel.onConfirmPasswordChanged(it)},
             label = {Text("Conferma Password")},
             singleLine = true,
-            isError = false
+            isError = confirmPasswordState == TextState.ERROR,
+            visualTransformation = if (showConfirmPassword) {VisualTransformation.None} else {PasswordVisualTransformation()},
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            trailingIcon = {
+                val image = if (showConfirmPassword) {
+                    Icons.Filled.Visibility
+                } else {
+                    Icons.Filled.VisibilityOff
+                }
+                val description = if (showConfirmPassword) {"Hide password"} else {"Show password"}
+                IconButton(onClick = {showConfirmPassword = !showConfirmPassword}){
+                    Icon(imageVector  = image, description)}
+            }
         )
 
-        Button(onClick = {registerViewModel.register(email, password)}) {
+        Button(onClick = {registerViewModel.tryRegistration(email, password, confirmPassword)}) {
             Text("Register")
         }
 

@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
 
         ProgettoParabellumTheme {
             //substitute with route
-            NavHost(navController, startDestination = Routes.Login.route) {
+            NavHost(navController, startDestination = Routes.Home.route) {
                 composable(Routes.Login.route) {
                     LoginScreen(navController)
                 }

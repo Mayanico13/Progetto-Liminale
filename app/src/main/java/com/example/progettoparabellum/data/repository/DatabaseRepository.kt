@@ -2,8 +2,11 @@ package com.example.progettoparabellum.data.repository
 
 import android.util.Log
 import com.example.progettoparabellum.data.model.Post
+import com.example.progettoparabellum.data.model.UserModel
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.auth.User
 import javax.inject.Inject
 
 class DatabaseRepository @Inject constructor(
@@ -20,6 +23,12 @@ class DatabaseRepository @Inject constructor(
             callback(emptyList())
         }
 
-        }
-
     }
+
+    fun addUser(user: UserModel){
+        firestore.collection("users")
+    }
+
+}
+
+

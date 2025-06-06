@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.example.progettoparabellum.data.model.Post
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun HomeScreen(
@@ -33,7 +34,6 @@ fun HomeScreen(
     LazyColumn(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         items(postList) {
             post -> postCard(post)
-
         }
     }
 }
@@ -50,7 +50,7 @@ fun postCard(
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "${post.uid}",
+                text = "${post.username}",
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onPrimary
             )

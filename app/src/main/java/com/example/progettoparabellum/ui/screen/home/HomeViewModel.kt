@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.progettoparabellum.data.model.Post
 import com.example.progettoparabellum.data.repository.DatabaseRepository
 import com.example.progettoparabellum.ui.screen.auth.login.LoginUiState
+import com.google.firebase.firestore.DocumentReference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -24,4 +25,7 @@ class HomeViewModel @Inject constructor(
              _postList.value = result
          }
     }
+
+
+
 }

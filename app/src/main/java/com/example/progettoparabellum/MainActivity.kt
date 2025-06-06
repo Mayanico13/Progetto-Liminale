@@ -29,7 +29,6 @@ class MainActivity : ComponentActivity() {
             FirebaseApp.initializeApp(this)
         }
 
-
         setContent {
                 ScreenMain()
         }
@@ -48,7 +47,7 @@ class MainActivity : ComponentActivity() {
 
         ProgettoParabellumTheme {
             //substitute with route
-            NavHost(navController, startDestination = Routes.Home.route) {
+            NavHost(navController, startDestination = route) {
                 composable(Routes.Login.route) {
                     LoginScreen(navController)
                 }

@@ -33,6 +33,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -55,12 +56,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.0")
     implementation("androidx.activity:activity-compose:1.10.1")
-    implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
-    implementation(platform("com.google.firebase:firebase-firestore"))
+    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
+    implementation(libs.firebase.firestore)
     implementation(platform("com.google.firebase:firebase-common"))
     implementation("com.google.firebase:firebase-auth")
     implementation(libs.androidx.material3)
-    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -73,4 +73,7 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation:1.2.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation ("androidx.compose.material:material-icons-extended:1.7.8")
+    implementation ("com.google.android.gms:play-services-base:18.7.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+    implementation ("com.google.android.gms:play-services-auth:21.3.0")
 }

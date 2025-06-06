@@ -35,6 +35,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.progettoparabellum.Routes
 import com.example.progettoparabellum.ui.screen.auth.TextState
 
 @Composable
@@ -53,7 +54,10 @@ fun LoginScreen (
         is LoginUiState.Success -> {InitialScreen(loginViewModel, navController)
             //TOGLIERE PLZ
             Log.d("TAG", "Login effettuato? : " + loginViewModel.isUserLogged())
-            loginViewModel.logout()}
+            //loginViewModel.logout()
+            navController.navigate(Routes.Home.route)
+
+        }
     }
 }
 

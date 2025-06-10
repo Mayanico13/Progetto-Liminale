@@ -3,6 +3,7 @@ package com.example.progettoparabellum.ui.screen.auth.login
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import com.example.progettoparabellum.data.repository.AuthRepository
+import com.example.progettoparabellum.data.repository.DatabaseRepository
 import com.example.progettoparabellum.ui.screen.auth.TextState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,8 @@ import kotlin.Result
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: AuthRepository,
+    private val dataRepo: DatabaseRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
@@ -50,7 +52,8 @@ class LoginViewModel @Inject constructor(
 
     fun loginResult(result: Result<Unit>){
         _uiState.value = result.fold(
-            onSuccess = { LoginUiState.Success("")},
+            onSuccess = {
+                LoginUiState.Success("")},
             onFailure = { LoginUiState.Error("Email e/o password non corrette")}
         )
 

@@ -26,7 +26,7 @@ class DatabaseRepository @Inject constructor(
     }
 
     fun addUser(user: UserModel){
-        firestore.collection("users").add(TODO())
+        //firestore.collection("users").add(TODO())
     }
 
     fun getUser(uid: String, callback: (UserModel?) -> Unit){

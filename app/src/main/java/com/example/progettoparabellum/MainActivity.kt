@@ -15,6 +15,7 @@ import com.example.progettoparabellum.ui.theme.ProgettoParabellumTheme
 import com.example.progettoparabellum.ui.screen.auth.login.LoginScreen
 import com.example.progettoparabellum.ui.screen.auth.register.RegisterScreen
 import com.example.progettoparabellum.ui.screen.home.HomeScreen
+import com.example.progettoparabellum.ui.screen.home.PostCreateScreen
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
@@ -46,7 +47,6 @@ class MainActivity : ComponentActivity() {
         }
 
         ProgettoParabellumTheme {
-            //substitute with route
             NavHost(navController, startDestination = route) {
                 composable(Routes.Login.route) {
                     LoginScreen(navController)
@@ -58,6 +58,10 @@ class MainActivity : ComponentActivity() {
 
                 composable(Routes.Home.route) {
                     HomeScreen(navController)
+                }
+
+                composable(Routes.CreatePost.route){
+                    PostCreateScreen(navController)
                 }
             }
 

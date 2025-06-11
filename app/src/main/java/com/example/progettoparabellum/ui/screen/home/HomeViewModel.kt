@@ -18,8 +18,8 @@ import kotlinx.coroutines.flow.asStateFlow
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: DatabaseRepository,
-    private val user: UserModel
+    private val repository: DatabaseRepository
+    //private val user: UserModel
 ): ViewModel() {
     private val _postList = MutableStateFlow<List<Post>>(emptyList())
     val postList: StateFlow<List<Post>> = _postList.asStateFlow()
@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(
     fun createPost(content: String){
 
         if(content.isNotEmpty()) {
-            val post: Post = Post(user.uid, content, Timestamp.now(), user.username)
+            val post: Post = Post("user.uid", content, Timestamp.now(), "user.username")
             repository.createPost(post)
         } else {
             TODO()

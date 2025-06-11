@@ -26,7 +26,8 @@ object AppModule {
     @Singleton
     fun provideFireStore(): FirebaseFirestore = Firebase.firestore
 
-    @Provides
-    @Singleton
-    fun provideUserModel(): UserModel = TODO() //Ogni volta che avvi app se loggato lo pigli
+    //@Provides
+    //@Singleton
+    //fun provideUserModel(): UserModel = TODO()
+    // Ogni volta che avvi app se loggato lo pigli
 }

@@ -13,15 +13,17 @@ object BottomBarIcons {
             icon = Icons.Filled.Home,
             route = Routes.Home.route
         ),
-        BottomNavItem(
-            label = "Settings",
-            icon = Icons.Filled.Settings,
-            route = "settings"
-        ),
+
         BottomNavItem(
             label = "New post",
             icon = Icons.Filled.Add,
             route = Routes.CreatePost.route
+        ),
+
+        BottomNavItem(
+            label = "Settings",
+            icon = Icons.Filled.Settings,
+            route = "settings"
         )
     )
 }

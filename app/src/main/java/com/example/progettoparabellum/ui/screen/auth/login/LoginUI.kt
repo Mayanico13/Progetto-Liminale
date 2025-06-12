@@ -135,7 +135,7 @@ fun InitialScreen(
 @Composable
 fun LoadingScreen(){
     Box (
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ){
         CircularProgressIndicator(

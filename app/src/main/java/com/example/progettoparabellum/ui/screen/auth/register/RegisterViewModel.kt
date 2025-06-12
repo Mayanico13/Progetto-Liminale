@@ -29,12 +29,8 @@ class RegisterViewModel @Inject constructor(
 
     fun tryRegistration(email: String, password: String, confirmPassword: String){
 
-        if((email.isNotEmpty() && password.isNotEmpty()) && (password.equals(confirmPassword)) && isValidEmail(email)){
+        if((email.isNotEmpty() && password.isNotEmpty()) && (password == confirmPassword) && isValidEmail(email)){
             register(email, password)
-            //
-            //Da togliere
-            //
-            repository.logout()
         } else {
             _uiState.value = RegisterUiState.Error("No vuoto")
             _emailState.value = TextState.ERROR

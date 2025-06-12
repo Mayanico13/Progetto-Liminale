@@ -1,5 +1,6 @@
 package com.example.progettoparabellum.ui.screen.home
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.progettoparabellum.data.model.Post
@@ -24,9 +25,18 @@ class HomeViewModel @Inject constructor(
     private val _postList = MutableStateFlow<List<Post>>(emptyList())
     val postList: StateFlow<List<Post>> = _postList.asStateFlow()
 
+    private val _homeState = MutableStateFlow<HomeState>(HomeState.Idle)
+    val homeState: StateFlow<HomeState> = _homeState.asStateFlow()
+
     fun loadPost(){
+        _homeState.value = HomeState.Loading
          repository.getPosts() { result ->
-             _postList.value = result
+             if(result.isNotEmpty()){
+                 _homeState.value = HomeState.Idle
+                 _postList.value = result
+             } else {
+                 _homeState.value = HomeState.Idle
+             }
          }
     }
 

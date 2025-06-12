@@ -32,6 +32,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -53,6 +54,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.progettoparabellum.Routes
+import com.example.progettoparabellum.ui.screen.auth.login.LoadingScreen
+import com.example.progettoparabellum.ui.screen.auth.login.LoginViewModel
+import com.example.progettoparabellum.ui.screen.auth.register.InitialScreen
+import com.example.progettoparabellum.ui.screen.auth.register.RegisterUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,18 +67,44 @@ fun HomeScreen(
 ) {
 
     val postList by homeViewModel.postList.collectAsState()
+    val uiState by homeViewModel.homeState.collectAsState()
+
     LaunchedEffect(Unit) {
         homeViewModel.loadPost()
     }
+    when(uiState){
+        HomeState.Idle -> IdleScaffold(navController, homeViewModel, postList)
+        HomeState.Loading -> LoadingScaffold(navController, homeViewModel)
+    }
 
+
+
+}
+
+@Composable
+fun IdleScaffold(navController: NavController, homeViewModel: HomeViewModel, postList: List<Post>){
     Scaffold(
-        topBar = { TopBar(navController) },
-        bottomBar = { BottomBar(navController)}
+        topBar = { TopBar(navController, homeViewModel) },
+        bottomBar = { BottomBar(navController)},
+        modifier = Modifier.background(MaterialTheme.colorScheme.background)
     ) { innerPadding ->
         PostColumn(innerPadding, postList)
     }
-
 }
+
+@Composable
+fun Loading(innerPadding: PaddingValues){
+    Box (
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).padding(innerPadding),
+        contentAlignment = Alignment.Center
+    ){
+        CircularProgressIndicator(
+            modifier = Modifier.size(64.dp)
+        )
+    }
+}
+
+
 
 @Composable
 fun BottomBar(navController: NavController) {
@@ -124,7 +155,8 @@ fun BottomBar(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(navController: NavController) {
+fun TopBar(navController: NavController,
+           viewModel: HomeViewModel) {
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -134,14 +166,25 @@ fun TopBar(navController: NavController) {
             Text("Home page")
         },
         actions = {
-            IconButton(onClick = { navController.navigate(Routes.CreatePost.route) }) {
+            IconButton(onClick = { viewModel.loadPost() }) {
                 Icon(
-                    imageVector = Icons.Filled.Menu,
+                    imageVector = Icons.Filled.Refresh,
                     contentDescription = "Localized description"
                 )
             }
         }
     )
+}
+
+@Composable
+fun LoadingScaffold(navController: NavController, homeViewModel: HomeViewModel){
+    Scaffold(
+        topBar = { TopBar(navController, homeViewModel) },
+        bottomBar = { BottomBar(navController)},
+        modifier = Modifier.background(MaterialTheme.colorScheme.background)
+    ) { innerPadding ->
+        Loading(innerPadding)
+    }
 }
 
 @Composable
@@ -208,14 +251,4 @@ fun PostItem(post: Post) {
 }
 
 
-@Composable
-fun loading() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.size(64.dp)
-        )
-    }
-}
+

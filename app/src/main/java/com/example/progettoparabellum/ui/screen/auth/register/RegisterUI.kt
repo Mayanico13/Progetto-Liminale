@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.progettoparabellum.Routes
 import com.example.progettoparabellum.ui.screen.auth.TextState
 import com.example.progettoparabellum.ui.screen.auth.login.LoadingScreen
 
@@ -44,7 +45,9 @@ fun RegisterScreen(
         is RegisterUiState.Error -> InitialScreen(registerViewModel, navController)
         RegisterUiState.Idle -> InitialScreen(registerViewModel, navController)
         RegisterUiState.Loading -> LoadingScreen()
-        is RegisterUiState.Success -> InitialScreen(registerViewModel, navController)
+        is RegisterUiState.Success -> {
+            navController.navigate(Routes.Home.route)
+        }
     }
 }
 
@@ -66,7 +69,9 @@ fun InitialScreen(
     val confirmPasswordState by registerViewModel.confirmPasswordState.collectAsState()
     val usernameState by registerViewModel.usernameState.collectAsState()
 
-    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(MaterialTheme.colorScheme.background),
         verticalArrangement = Arrangement.spacedBy(space = 10.dp, alignment =  Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally) {
 

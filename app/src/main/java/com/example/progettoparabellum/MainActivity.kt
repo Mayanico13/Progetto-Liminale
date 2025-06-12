@@ -2,7 +2,6 @@ package com.example.progettoparabellum
 
 import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,13 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.*
-import com.example.progettoparabellum.data.model.UserModel
 import com.example.progettoparabellum.ui.theme.ProgettoParabellumTheme
 import com.example.progettoparabellum.ui.screen.auth.login.LoginScreen
 import com.example.progettoparabellum.ui.screen.auth.register.RegisterScreen
 import com.example.progettoparabellum.ui.screen.home.HomeScreen
-import com.example.progettoparabellum.ui.screen.home.PostCreateScreen
-import com.example.progettoparabellum.ui.screen.home.SettingsScreen
+import com.example.progettoparabellum.ui.screen.home.postCreation.PostCreateScreen
+import com.example.progettoparabellum.ui.screen.home.settings.SettingsScreen
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 

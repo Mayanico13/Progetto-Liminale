@@ -44,11 +44,12 @@ class DatabaseRepository @Inject constructor(
         }
     }
 
-    fun createPost(post: Post){
-        firestore.collection("posts").add(post).addOnSuccessListener {
-            TODO()
+    fun createPost(post: Post, callback: (Result<Unit>) -> Unit){
+        val docRef = firestore.collection("posts").document()
+        docRef.set(post).addOnSuccessListener {
+            callback(Result.success(Unit))
         }.addOnFailureListener {
-            TODO()
+            callback(Result.failure(Exception("")))
         }
     }
 

@@ -51,12 +51,8 @@ fun LoginScreen (
         is LoginUiState.Error -> InitialScreen(loginViewModel, navController)
         LoginUiState.Idle -> InitialScreen(loginViewModel, navController)
         LoginUiState.Loading -> LoadingScreen()
-        is LoginUiState.Success -> {InitialScreen(loginViewModel, navController)
-            //TOGLIERE PLZ
-            Log.d("TAG", "Login effettuato? : " + loginViewModel.isUserLogged())
-            //loginViewModel.logout()
+        is LoginUiState.Success -> {
             navController.navigate(Routes.Home.route)
-
         }
     }
 }

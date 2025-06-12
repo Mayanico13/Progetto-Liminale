@@ -1,10 +1,9 @@
-package com.example.progettoparabellum.ui.screen.home
+package com.example.progettoparabellum.ui.screen.home.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -19,6 +18,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.progettoparabellum.Routes
 import com.example.progettoparabellum.data.model.UserModel
+import com.example.progettoparabellum.ui.screen.home.BottomBar
+import com.example.progettoparabellum.ui.screen.home.HomeViewModel
+import com.example.progettoparabellum.ui.screen.home.postCreation.TopBarCreation
 
 @Composable
 fun SettingsScreen(
@@ -27,7 +29,7 @@ fun SettingsScreen(
 ){
     Scaffold(
         topBar = { TopBarCreation(navController, "Settings") },
-        bottomBar = {BottomBar(navController)}
+        bottomBar = { BottomBar(navController) }
     ) {
             innerPadding ->
         SettingsInnerBody(homeViewModel, innerPadding, navController)

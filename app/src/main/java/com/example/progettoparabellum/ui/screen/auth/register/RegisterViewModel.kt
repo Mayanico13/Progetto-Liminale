@@ -53,12 +53,10 @@ class RegisterViewModel @Inject constructor(
     fun register(email: String, password: String, username: String){
         _uiState.value = RegisterUiState.Loading
         repository.register(email, password) { result: Result<Unit> ->
-            _uiState.value = result.fold(
-                onSuccess = { RegisterUiState.Success("")},
-                onFailure = { RegisterUiState.Error("BAH")}
-            )
+
 
             result.onSuccess {
+                _uiState.value = RegisterUiState.Success("")
                 UserModel.uid = repository.getUid()!!
                 UserModel.email = email
                 UserModel.username = username
@@ -66,6 +64,7 @@ class RegisterViewModel @Inject constructor(
             }
 
             result.onFailure {
+                _uiState.value = RegisterUiState.Error("BAH")
                 _emailState.value = TextState.ERROR
                 _passwordState.value = TextState.ERROR
                 _confirmPasswordState.value = TextState.ERROR

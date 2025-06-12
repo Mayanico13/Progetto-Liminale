@@ -18,17 +18,19 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 
+
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: DatabaseRepository,
     private val authRepository: AuthRepository
-    //private val user: UserModel
 ): ViewModel() {
     private val _postList = MutableStateFlow<List<Post>>(emptyList())
     val postList: StateFlow<List<Post>> = _postList.asStateFlow()
 
     private val _homeState = MutableStateFlow<HomeState>(HomeState.Idle)
     val homeState: StateFlow<HomeState> = _homeState.asStateFlow()
+
+
 
     fun loadPost(){
         _homeState.value = HomeState.Loading
@@ -54,17 +56,4 @@ class HomeViewModel @Inject constructor(
     fun logout(){
         authRepository.logout()
     }
-
-    fun createPost(content: String){
-
-        if(content.isNotEmpty()) {
-            val post: Post = Post("user.uid", content, Timestamp.now(), "user.username")
-            repository.createPost(post)
-        } else {
-            TODO() // errore classico
-        }
-    }
-
-
-
 }

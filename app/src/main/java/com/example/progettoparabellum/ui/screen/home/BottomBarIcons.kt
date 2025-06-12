@@ -23,7 +23,7 @@ object BottomBarIcons {
         BottomNavItem(
             label = "Settings",
             icon = Icons.Filled.Settings,
-            route = "settings"
+            route = Routes.Settings.route
         )
     )
 }

@@ -2,6 +2,7 @@ package com.example.progettoparabellum.ui.screen.auth.login
 
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
+import com.example.progettoparabellum.data.model.UserModel
 import com.example.progettoparabellum.data.repository.AuthRepository
 import com.example.progettoparabellum.data.repository.DatabaseRepository
 import com.example.progettoparabellum.ui.screen.auth.TextState
@@ -45,20 +46,24 @@ class LoginViewModel @Inject constructor(
     fun login(email: String, password: String){
         _uiState.value = LoginUiState.Loading
         repository.login(email, password) { result: Result<Unit> ->
-            loginResult(result)
-        }
+            _uiState.value = result.fold(
+                onSuccess = {
+                    LoginUiState.Success("")},
+                onFailure = { LoginUiState.Error("Email e/o password non corrette")}
+            )
 
-    }
+            result.onSuccess {
+                dataRepo.getUser(repository.getUid()!!){
+                    user ->
+                    UserModel.uid = user.uid
+                    UserModel.email = user.email
+                    UserModel.username = user.username
+                }
+            }
 
-    fun loginResult(result: Result<Unit>){
-        _uiState.value = result.fold(
-            onSuccess = {
-                LoginUiState.Success("")},
-            onFailure = { LoginUiState.Error("Email e/o password non corrette")}
-        )
-
-        result.onFailure { _emailState.value = TextState.ERROR
-            _passwordState.value = TextState.ERROR
+            result.onFailure { _emailState.value = TextState.ERROR
+                _passwordState.value = TextState.ERROR
+            }
         }
 
     }
@@ -78,18 +83,4 @@ class LoginViewModel @Inject constructor(
     fun onPasswordChanged(password: String){
         _passwordState.value = TextState.CORRECT
     }
-
-    /*@AssistedFactory
-    interface MyViewModelFactory {
-        fun create(repository: AuthRepository): LoginViewModel
-    }*/
 }
-
-
-/*class LoginViewModelFactory(
-    private val repository: AuthRepository
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return LoginViewModel(repository) as T
-    }
-}*/

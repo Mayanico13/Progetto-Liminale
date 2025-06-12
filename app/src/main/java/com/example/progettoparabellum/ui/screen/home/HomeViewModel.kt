@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.progettoparabellum.data.model.Post
 import com.example.progettoparabellum.data.model.UserModel
+import com.example.progettoparabellum.data.repository.AuthRepository
 import com.example.progettoparabellum.data.repository.DatabaseRepository
 import com.example.progettoparabellum.ui.screen.auth.login.LoginUiState
 import com.google.firebase.Timestamp
@@ -19,7 +20,8 @@ import kotlinx.coroutines.flow.asStateFlow
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: DatabaseRepository
+    private val repository: DatabaseRepository,
+    private val authRepository: AuthRepository
     //private val user: UserModel
 ): ViewModel() {
     private val _postList = MutableStateFlow<List<Post>>(emptyList())
@@ -40,13 +42,26 @@ class HomeViewModel @Inject constructor(
          }
     }
 
+    fun updateUser(){
+        repository.getUser(authRepository.getUid()!!) {
+                user ->
+            UserModel.uid = user.uid
+            UserModel.email = user.email
+            UserModel.username = user.username
+        }
+    }
+
+    fun logout(){
+        authRepository.logout()
+    }
+
     fun createPost(content: String){
 
         if(content.isNotEmpty()) {
             val post: Post = Post("user.uid", content, Timestamp.now(), "user.username")
             repository.createPost(post)
         } else {
-            TODO()
+            TODO() // errore classico
         }
     }
 

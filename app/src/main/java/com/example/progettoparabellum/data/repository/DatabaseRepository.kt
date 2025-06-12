@@ -2,8 +2,10 @@ package com.example.progettoparabellum.data.repository
 
 import android.util.Log
 import com.example.progettoparabellum.data.model.Post
+import com.example.progettoparabellum.data.model.TempUser
 import com.example.progettoparabellum.data.model.UserModel
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.auth.User
@@ -25,17 +27,20 @@ class DatabaseRepository @Inject constructor(
 
     }
 
-    fun addUser(user: UserModel){
-        //firestore.collection("users").add(TODO())
-    }
 
-    fun getUser(uid: String, callback: (UserModel?) -> Unit){
+
+    fun getUser(uid: String, callback: (TempUser) -> Unit){
         firestore.collection("users").document(uid).get().addOnSuccessListener{
             result ->
-            var user = result.toObject(UserModel::class.java)
+            val user: TempUser = result.toObject(TempUser::class.java)!!
             callback(user)
-        }.addOnFailureListener {
-            callback(null)
+        }
+    }
+
+    fun createUser(){
+        val docRef = firestore.collection("users").document(UserModel.uid)
+        docRef.set(UserModel).addOnSuccessListener {
+            Log.d("TAG", "User added to repo")
         }
     }
 

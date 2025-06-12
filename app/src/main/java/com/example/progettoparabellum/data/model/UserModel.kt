@@ -1,7 +1,9 @@
 package com.example.progettoparabellum.data.model
 
-data class UserModel (
-    val uid: String = "",
-    val username: String = "",
-    val email: String = ""
-)
+object UserModel{
+    var uid: String = ""
+    var username: String = ""
+    var email: String = ""
+}
+
+

@@ -71,6 +71,7 @@ fun HomeScreen(
 
     LaunchedEffect(Unit) {
         homeViewModel.loadPost()
+        homeViewModel.updateUser()
     }
     when(uiState){
         HomeState.Idle -> IdleScaffold(navController, homeViewModel, postList)

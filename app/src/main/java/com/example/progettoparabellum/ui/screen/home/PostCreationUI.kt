@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,7 +25,7 @@ fun PostCreateScreen(
     homeViewModel: HomeViewModel = hiltViewModel<HomeViewModel>()
 ) {
     Scaffold(
-        topBar = { TopBarCreation(navController) },
+        topBar = { TopBarCreation(navController, "Create post") },
         bottomBar = {BottomBar(navController)}
     ) {
             innerPadding ->
@@ -37,7 +36,8 @@ fun PostCreateScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBarCreation(
-    navController: NavController
+    navController: NavController,
+    page: String
 ) {
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
@@ -45,7 +45,7 @@ fun TopBarCreation(
             titleContentColor = MaterialTheme.colorScheme.primary,
         ),
         title = {
-            Text("Home page")
+            Text(page)
         },
         navigationIcon = {
             IconButton(onClick = { navController.navigate(Routes.Home.route) }) {

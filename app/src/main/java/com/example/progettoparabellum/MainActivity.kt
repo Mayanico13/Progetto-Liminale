@@ -2,6 +2,7 @@ package com.example.progettoparabellum
 
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -11,11 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.*
+import com.example.progettoparabellum.data.model.UserModel
 import com.example.progettoparabellum.ui.theme.ProgettoParabellumTheme
 import com.example.progettoparabellum.ui.screen.auth.login.LoginScreen
 import com.example.progettoparabellum.ui.screen.auth.register.RegisterScreen
 import com.example.progettoparabellum.ui.screen.home.HomeScreen
 import com.example.progettoparabellum.ui.screen.home.PostCreateScreen
+import com.example.progettoparabellum.ui.screen.home.SettingsScreen
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
@@ -39,6 +42,7 @@ class MainActivity : ComponentActivity() {
     fun ScreenMain(){
         val navController = rememberNavController()
         val authRepo = AppModule.provideFirebaseAuth()
+        val dataRepo = AppModule.provideFireStore()
         var route : String
         if(authRepo.currentUser != null){
             route = Routes.Home.route
@@ -62,6 +66,10 @@ class MainActivity : ComponentActivity() {
 
                 composable(Routes.CreatePost.route){
                     PostCreateScreen(navController)
+                }
+
+                composable(Routes.Settings.route){
+                    SettingsScreen(navController)
                 }
             }
 

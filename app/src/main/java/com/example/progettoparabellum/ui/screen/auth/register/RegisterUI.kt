@@ -56,6 +56,7 @@ fun InitialScreen(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
 
     var showPassword by remember { mutableStateOf(false) }
     var showConfirmPassword by remember { mutableStateOf(false) }
@@ -63,6 +64,7 @@ fun InitialScreen(
     val emailState by registerViewModel.emailState.collectAsState()
     val passwordState by registerViewModel.passwordState.collectAsState()
     val confirmPasswordState by registerViewModel.confirmPasswordState.collectAsState()
+    val usernameState by registerViewModel.usernameState.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
         verticalArrangement = Arrangement.spacedBy(space = 10.dp, alignment =  Alignment.CenterVertically),
@@ -126,7 +128,17 @@ fun InitialScreen(
             }
         )
 
-        Button(onClick = {registerViewModel.tryRegistration(email, password, confirmPassword)}) {
+        OutlinedTextField(
+            value = username,
+            onValueChange = {username = it
+                registerViewModel.onUsernameChange(it)},
+            label = {Text("Username")},
+            singleLine = true,
+            isError = usernameState == TextState.ERROR,
+
+        )
+
+        Button(onClick = {registerViewModel.tryRegistration(email, password, confirmPassword, username)}) {
             Text("Register")
         }
 

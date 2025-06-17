@@ -1,1 +1,1 @@
-Grosso progetto
+Un piccolo social media per Android.
